@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ALBaraka.Models.Service_Analyzes>
+
+@{
+    ViewData["Title"] = ViewBag.Service_Name+" Service Analyzes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <h2>@ViewBag.Service_Name Service Analyzes</h2>
+
+<p>
+    <a asp-action="Create" asp-route-Service_ID="@ViewBag.Service_ID">Create New</a>
+</p>
+<table class="table" id="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name_EN)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr id="@item.ID">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name_EN)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <button class="btn btn-danger" onclick="Delete('@(item.ID)');">Delete</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<script>
+    function Delete(i) {
+        var confirmed = confirm("Are You Sure You Want To Delete This Analyze ?");
+
+        if (confirmed) {
+                $.post("@Url.Action("DeleteAnalyze", "Service_Analyzes")", {
+
+                    ID: i
+
+            },
+                    function (data) {
+                  $("#table tr#" + data + "").remove();
+        }
+
+          )
+        }
+        }
+
+</script>

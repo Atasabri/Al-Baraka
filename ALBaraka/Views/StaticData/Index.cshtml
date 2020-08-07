@@ -1,0 +1,66 @@
+﻿@model List<StaticData>
+@{
+    ViewData["Title"] = "Static Data";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Static Data</h2>
+
+<h4></h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditData">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <input type="hidden" asp-for="@Model[i].ID" />
+                <input type="hidden" asp-for="@Model[i].Type" />
+                <input type="hidden" asp-for="@Model[i].HasEnglish" />
+                <input type="hidden" asp-for="@Model[i].Description" />
+                <input type="hidden" asp-for="@Model[i].Key" />
+                @if (Model[i].Type == (int)Types.TextArea)
+                {
+                 <div class="form-group">
+                    <label class="control-label" style="color:#0300bb">@Model[i].Key</label><label style="width:700px">  =>>> [ @Model[i].Description ] </label>
+                    <textarea asp-for="@Model[i].Value" class="form-control" style="height:100px;width:600px"></textarea>
+                   <span asp-validation-for="@Model[i].Value" class="text-danger"></span>
+                 </div>
+                    @if (Model[i].HasEnglish)
+                    {
+                        <div class="form-group">
+                            <label class="control-label" style="color:#0300bb">@Model[i].Key (English)</label>
+                            <textarea asp-for="@Model[i].Value_EN" class="form-control" style="height:100px;width:600px"></textarea>
+                            <span asp-validation-for="@Model[i].Value_EN" class="text-danger"></span>
+                        </div>
+                    }
+                }
+                else
+                {
+        <div class="form-group">
+            <label class="control-label" style="color:#0300bb">@Model[i].Key</label>@if (Model[i].Type == (int)Types.Icon)
+            {<a href='https://fontawesome.com/v4.7.0/icons/' target="_blank">Get Icon Class Name</a><br />} <label style="width:700px">=>>> [ @Model[i].Description ] </label>
+            <input asp-for="@Model[i].Value" class="form-control" style="width:600px" />
+            <span asp-validation-for="@Model[i].Value" class="text-danger"></span>
+        </div>
+                    @if (Model[i].HasEnglish)
+                    {
+                        <div class="form-group">
+                            <label class="control-label" style="color:#0300bb">@Model[i].Key (English)</label>
+                            <input asp-for="@Model[i].Value_EN" class="form-control" style="width:600px" />
+                            <span asp-validation-for="@Model[i].Value_EN" class="text-danger"></span>
+                        </div>
+                    }
+                }
+
+
+            }
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+

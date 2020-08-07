@@ -1,0 +1,61 @@
+﻿@model Branch
+
+@{
+    ViewData["Title"] = "Branch Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Branch</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name_EN)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name_EN)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WhatsApp)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WhatsApp)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Map)
+        </dt>
+        <dd>
+            <a href="@Html.DisplayFor(model => model.Map)" target="_blank">View In Browser</a>
+        </dd>
+        <dt>
+            Photo
+        </dt>
+        <dd>
+            <img src="~/Uploads/Branches/@(Model.ID).jpg" width="600" height="500" asp-append-version="true" alt="Alternate Text" />
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

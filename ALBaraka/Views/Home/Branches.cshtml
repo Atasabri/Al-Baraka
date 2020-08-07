@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Branch>
+@{
+    ViewData["Title"] = "Branches";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    var currentCulture = ViewContext.HttpContext.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture;
+}
+
+@inject IViewLocalizer Localizer
+@inject IStaticDataValues staticData
+@section Banner{
+    <!-- banner1 -->
+    <div class="banner1 jarallax" style="background: url(/Uploads/StaticImages/@staticData.GetValue("Follow_Banner",null)) no-repeat 0px -99px;">
+        <div class="container">
+        </div>
+    </div>
+
+    <div class="services-breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="index.html">@Localizer["Home"]</a><i>|</i></li>
+                <li>@Localizer["Our Branches"]</li>
+            </ul>
+        </div>
+    </div>
+    <!-- //banner1 -->
+
+}
+
+<br/>
+<br />
+<br />
+<h3 class="w3_heade_tittle_agile">@Localizer["Our Branches"]</h3>
+<br />
+<br />
+<br />
+<!-- /girds_agileits -->
+<div class="Department_girds_agileits">
+    <div class="agile_team_grid">
+
+        @if (currentCulture.Name == "ar")
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-md-3 w3ls_banner_bottom_grid">
+                    <img src="~/Uploads/Branches/@(item.ID).jpg" alt=" " class="img-responsive" />
+                    <div class="overlay">
+                        <h4>@item.Name</h4>
+                        <ul class="social_agileinfo">
+                            @if (!string.IsNullOrEmpty(item.Phone))
+                            {
+                                <li><a href="tel:@item.Phone" class="w3_twitter"><i class="fa fa-phone"></i></a></li>
+                            }
+                            @if (!string.IsNullOrEmpty(item.Map))
+                            {
+                                <li><a href="@item.Map" target="_blank" class="w3_google"><i class="fa fa-map-marker"></i></a></li>
+                            }
+                            @if (!string.IsNullOrEmpty(item.WhatsApp))
+                            {
+                                <li><a href="https://api.whatsapp.com/send?phone=@(item.WhatsApp)&text=Hi" class="w3_instagram"><i class="fa fa-whatsapp"></i></a></li>
+                            }
+                            @if (!string.IsNullOrEmpty(item.Email))
+                            {
+                                <li><a href="mailto:@item.Email" class="w3_facebook"><i class="fa fa-envelope-o"></i></a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+            }
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-md-3 w3ls_banner_bottom_grid">
+                    <img src="~/Uploads/Branches/@(item.ID).jpg" alt=" " class="img-responsive" />
+                    <div class="overlay">
+                        <h4>@item.Name_EN</h4>
+                        <ul class="social_agileinfo">
+                            @if (!string.IsNullOrEmpty(item.Phone))
+                            {
+                                <li><a href="tel:@item.Phone" class="w3_twitter"><i class="fa fa-phone"></i></a></li>
+                            }
+                            @if (!string.IsNullOrEmpty(item.Map))
+                            {
+                                <li><a href="@item.Map" target="_blank" class="w3_google"><i class="fa fa-map-marker"></i></a></li>
+                            }
+                            @if (!string.IsNullOrEmpty(item.WhatsApp))
+                            {
+                                <li><a href="https://api.whatsapp.com/send?phone=@(item.WhatsApp)&text=Hi" class="w3_instagram"><i class="fa fa-whatsapp"></i></a></li>
+                            }
+                            @if (!string.IsNullOrEmpty(item.Email))
+                            {
+                                <li><a href="mailto:@item.Email" class="w3_facebook"><i class="fa fa-envelope-o"></i></a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+            }
+        }
+
+
+    </div>
+    <div class="clearfix"></div>
+</div>
+<!-- //girds_agileits -->

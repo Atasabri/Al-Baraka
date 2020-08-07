@@ -1,0 +1,502 @@
+﻿<!--
+    author: Ata Sabri
+    author URL: https://www.facebook.com/ata.cristiano.65
+-->
+@inject IStaticDataValues staticData
+
+@{
+    var currentCulture = ViewContext.HttpContext.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture;
+    string Email = staticData.GetValue("Email", null);
+    string Phone = staticData.GetValue("Phone", null);
+    string Location = staticData.GetValue("Location", null);
+    string FaceBook = staticData.GetValue("FaceBook", null);
+    string Twitter = staticData.GetValue("Twitter", null);
+    string Instgram = staticData.GetValue("Instgram", null);
+    string Pinterest = staticData.GetValue("Pinterest", null);
+}
+@inject IViewLocalizer Localizer
+@inject IUnitOfWork unitofwork
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Localizer["AlBaraka Labs"]</title>
+    <!-- for-meta-tags-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="البركة, معامل, معامل البركة, معامل البركة للتحاليل الطبية,
+تحاليل طبية, موقع البرمة,موقع البركة للتحاليل الطبية, تحاليل, elbaraka lab , al barakalab , albaraka , Laboratories
+el baraka Wbsite , el baraka lab " />
+    <script type="application/x-javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+               function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link rel="icon" href="~/images/logo.jpg">
+    <!-- //for-meta-tags-->
+    <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="~/css/flexslider.css" type="text/css" media="screen" Department="" />
+    <link href="~/css/services.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/ziehharmonika.css" rel="stylesheet" type="text/css">
+    <link href="~/css/JiSlider.css" rel="stylesheet">
+    <!-- Portfolio-CSS -->
+    <link rel="stylesheet" href="~/css/swipebox.css" type="text/css" media="all">
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- font-awesome icons -->
+    <link href="~/css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <link href="//fonts.googleapis.com/css?family=Raleway:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,900" rel="stylesheet">
+
+    @if (currentCulture.Name == "ar")
+    {
+        <style>
+            p, ul li, ol li {
+                font-size: 1.1em;
+            }
+            p, h1, h2, h3, h4, h5, h6, .w3layouts_stats_left p, h5.w3l-subtitle{
+	text-align:right;
+    direction:rtl;
+         white-space:pre-line
+             
+        
+}
+.w3layouts_stats_left p,.w3layouts_stats_left h3{
+	text-align:center
+}
+
+.col-md-4.w3agile_footer_grid h3{
+	text-align:center
+}
+
+.col-md-4.w3-agile-blog-right h3, 
+.col-md-4.w3-agile-blog-right ul{
+	text-align:right
+}
+        </style>
+    }
+    else
+    {
+        <style>
+            p, ul li, ol li {
+                font-size: 1em;
+            }
+            p, h1, h2, h3, h4, h5, h6, .w3layouts_stats_left p, h5.w3l-subtitle{
+         white-space:pre-line
+             
+        
+}
+        </style>
+    }
+
+</head>
+<body>
+    <div class="main" id="home">
+        <!-- banner -->
+        <div class="header_agileinfo">
+            <div class="w3_agileits_header_text">
+                <ul class="top_agile_w3l_info_icons">
+                    <li><i class="fa fa-home" aria-hidden="true"></i>@Location</li>
+                    <li class="second"><i class="fa fa-phone" aria-hidden="true"></i><a href="tel:@Phone">@Phone</a></li>
+
+                    <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:@Email">@Email</a></li>
+                </ul>
+
+            </div>
+            <div class="agileinfo_social_icons">
+                <ul class="agileits_social_list">
+                    <li><a href="@FaceBook" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                    <li><a href="@Twitter" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                    <li><a href="@Pinterest" class="w3_agile_dribble"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                    <li><a href="@Instgram" class="w3_agile_rss"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+
+        <div class="header-bottom">
+            <nav class="navbar navbar-default">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="logo">
+                        <img src="~/images/logo.jpg" alt="Logo" width="212" height="69" />
+                        @*<h1><a class="navbar-brand" href="index.html"><span>EL</span>Baraka <i class="fa fa-plus" aria-hidden="true"></i> <p>Labs</p></a></h1>*@
+                    </div>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+                    <nav class="menu menu--sebastian">
+                        <ul id="m_nav_list" class="m_nav menu__list">
+                            <li class="m_nav_item menu__item" id="Index"> <a asp-controller="Home" asp-action="Index" class="menu__link"> @Localizer["Home"] </a></li>
+                            <li class="m_nav_item menu__item" id="About"> <a asp-controller="Home" asp-action="About" class="menu__link"> @Localizer["About Us"] </a> </li>
+                            <li class="m_nav_item menu__item dropdown" id="Branches">
+                                <a asp-controller="Home" asp-action="Branches" class="menu__link"> @Localizer["Our Branches"] </a>
+
+                                <ul class="dropdown-menu agile_short_dropdown" style="width:100%">
+                                    @if (currentCulture.Name == "ar")
+                                    {
+                                        foreach (var item in unitofwork.Branchs.AllData())
+                                        {
+                                            <li>
+                                                <h4 style="text-align:center">@item.Name</h4>
+                                                <ul class="social_agileinfo">
+                                                    @if (!string.IsNullOrEmpty(item.Phone))
+                                                    {
+                                                        <li><a style="color:#020008;" href="tel:@item.Phone" class="w3_twitter"><i class="fa fa-phone"></i></a></li>
+                                                    }
+                                                    @if (!string.IsNullOrEmpty(item.Map))
+                                                    {
+                                                        <li><a style="color:#020008;" href="@item.Map" target="_blank" class="w3_google"><i class="fa fa-map-marker"></i></a></li>
+                                                    }
+                                                    @if (!string.IsNullOrEmpty(item.WhatsApp))
+                                                    {
+                                                        <li><a style="color:#020008;" href="https://api.whatsapp.com/send?phone=@(item.WhatsApp)&text=Hi" class="w3_instagram"><i class="fa fa-whatsapp"></i></a></li>
+                                                    }
+                                                    @if (!string.IsNullOrEmpty(item.Email))
+                                                    {
+                                                        <li><a style="color:#020008;" href="mailto:@item.Email" class="w3_facebook"><i class="fa fa-envelope-o"></i></a></li>
+                                                    }
+                                                </ul>
+                                            </li>
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        foreach (var item in unitofwork.Branchs.AllData())
+                                        {
+                                            <li>
+                                                <h4 style="text-align:center">@item.Name_EN</h4>
+                                                <ul class="social_agileinfo">
+                                                    @if (!string.IsNullOrEmpty(item.Phone))
+                                                    {
+                                                        <li><a style="color:#020008;" href="tel:@item.Phone" class="w3_twitter"><i class="fa fa-phone"></i></a></li>
+                                                    }
+                                                    @if (!string.IsNullOrEmpty(item.Map))
+                                                    {
+                                                        <li><a style="color:#020008;" href="@item.Map" target="_blank" class="w3_google"><i class="fa fa-map-marker"></i></a></li>
+                                                    }
+                                                    @if (!string.IsNullOrEmpty(item.WhatsApp))
+                                                    {
+                                                        <li><a style="color:#020008;" href="https://api.whatsapp.com/send?phone=@(item.WhatsApp)&text=Hi" class="w3_instagram"><i class="fa fa-whatsapp"></i></a></li>
+                                                    }
+                                                    @if (!string.IsNullOrEmpty(item.Email))
+                                                    {
+                                                        <li><a style="color:#020008;" href="mailto:@item.Email" class="w3_facebook"><i class="fa fa-envelope-o"></i></a></li>
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                    }
+
+                                </ul>
+                            </li>
+                           
+                            <li class="m_nav_item menu__item" id="Follow"> <a asp-controller="Home" asp-action="Follow" class="menu__link"> @Localizer["Follow"]</a> </li>
+                            <li class="m_nav_item menu__item dropdown" id="Services">
+                                <a asp-controller="Home" asp-action="Services" class="menu__link"> @Localizer["Programs"]</a>
+                                <ul class="dropdown-menu agile_short_dropdown">
+                                    @if (currentCulture.Name == "ar")
+                                    {
+                                        foreach (var item in unitofwork.Services.AllData())
+                                        {
+                                            <li><a asp-controller="Home" asp-action="Service" asp-route-ID="@item.ID">@item.Name</a></li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        foreach (var item in unitofwork.Services.AllData())
+                                        {
+                                            <li><a asp-controller="Home" asp-action="Service" asp-route-ID="@item.ID">@item.Name_EN</a></li>
+                                        }
+                                    }
+
+                                </ul>
+                            </li>
+                            <li class="m_nav_item menu__item" id="Images"> <a asp-controller="Home" asp-action="Images" class="menu__link">@Localizer["Gallery"]</a> </li>
+                            <li class="m_nav_item menu__item" id="ContactUs"> <a asp-controller="Home" asp-action="ContactUs" class="menu__link">@Localizer["Contact Us"] </a> </li>
+                            @if (currentCulture.Name == "ar")
+                            {
+                                <li class="m_nav_item menu__item" id="moble_nav_item_6"> <a asp-controller="Home" asp-action="SetLanguage" asp-route-culture="en" class="menu__link">English </a> </li>
+                            }
+                            else
+                            {
+                                <li class="m_nav_item menu__item" id="moble_nav_item_6"> <a asp-controller="Home" asp-action="SetLanguage" asp-route-culture="ar" class="menu__link">عربي </a> </li>
+                            }
+                        </ul>
+                    </nav>
+
+                </div>
+                <!-- /.navbar-collapse -->
+            </nav>
+        </div>
+    </div>
+    @RenderSection("Banner", true)
+    <div>
+        @RenderBody()
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+        <div class="container">
+            <h4>@Localizer["Follow All"]<span>@Localizer["New"]</span></h4>
+
+            <div id="subscribe-grid">
+                <input type="email" id="subscribetxt" name="Email" placeholder="@Localizer["Enter You E-Mail"]" required="">
+                <input type="submit" onclick="Subscribe()" value="@Localizer["Send"]">
+            </div>
+            <span id="error" class="text-danger"></span>
+
+
+            <div class="agile_footer_copy">
+                <div class="w3agile_footer_grids">
+                    <div class="col-md-4 w3agile_footer_grid">
+                        <h3>@Localizer["About Us"]</h3>
+                        <p>
+                            @staticData.GetValue("About_1", currentCulture.Name)<span>
+                                @staticData.GetValue("About_2", currentCulture.Name)
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-md-4 w3agile_footer_grid">
+                        <h3>@Localizer["Contact Us"]</h3>
+                        <ul>
+                            <li><i class="fa fa-map-marker" aria-hidden="true"></i>@Location</li>
+                            <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:@Email">@Email</a></li>
+                            <li><i class="fa fa-phone" aria-hidden="true"></i>@Phone</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 w3agile_footer_grid w3agile_footer_grid1">
+                        <h3>@Localizer["Navigation"]</h3>
+                        <ul>
+                            <li><span class="fa fa-long-arrow-right" aria-hidden="true"></span><a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a></li>
+                            <li><span class="fa fa-long-arrow-right" aria-hidden="true"></span><a asp-controller="Home" asp-action="About">@Localizer["About Us"]</a></li>
+                            <li><span class="fa fa-long-arrow-right" aria-hidden="true"></span><a asp-controller="Home" asp-action="ContactUs">@Localizer["Contact Us"]</a></li>
+                            <li><span class="fa fa-long-arrow-right" aria-hidden="true"></span><a asp-controller="Home" asp-action="Images">@Localizer["Gallery"]</a></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+            <div class="w3_agileits_copy_right_social">
+                <div class="col-md-6 agileits_w3layouts_copy_right">
+                    <p style="direction:ltr">&copy; @DateTime.Now.Year AlBarakaLabs. All rights reserved | Design by <a href="https://www.facebook.com/ata.cristiano.65" target="_blank">Ata Sabri</a></p>
+                </div>
+                <div class="col-md-6 w3_agile_copy_right">
+                    <ul class="agileits_social_list">
+                        <li><a href="@FaceBook" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a href="@Twitter" class="agile_twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li><a href="@Pinterest" class="w3_agile_dribble"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                        <li><a href="@Instgram" class="w3_agile_rss"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+    <!-- //footer -->
+    <a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+    <!-- js -->
+    <script src="~/js/jquery-2.2.3.min.js"></script>
+    <script src="~/js/cbpFWTabs.js"></script>
+    <!-- //Gallery-Tab-JavaScript -->
+    <!-- Swipe-Box-JavaScript -->
+    <script src="~/js/jquery.swipebox.min.js"></script>
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $(".swipebox").swipebox();
+        });
+    </script>
+    <!-- //Swipe-Box-JavaScript -->
+    <script src="~/js/JiSlider.js"></script>
+    <script>
+        $(window).load(function () {
+            $('#JiSlider').JiSlider({ color: '#fff', start: 3, reverse: true }).addClass('ff')
+        })
+    </script>
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-36251023-1']);
+        _gaq.push(['_setDomainName', 'jqueryscript.net']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+
+    <script src="~/js/ziehharmonika.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.ziehharmonika').ziehharmonika({
+                collapsible: true,
+                prefix: ''
+            });
+        });
+    </script>
+    <!-- stats -->
+    <script src="~/js/jquery.waypoints.min.js"></script>
+    <script src="~/js/jquery.countup.js"></script>
+    <script>
+        $('.counter').countUp();
+    </script>
+    <!-- //stats -->
+    <script type="text/javascript">
+        $(function () {
+            $("#bars li .bar").each(function (key, bar) {
+                var percentage = $(this).data('percentage');
+
+                $(this).animate({
+                    'height': percentage + '%'
+                }, 1000);
+            })
+        })
+    </script>
+
+    <!-- bootstrap-pop-up -->
+    <div class="modal video-modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Health Plus
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <section>
+                    <div class="modal-body">
+                        <img src="~/images/g9.jpg" alt=" " class="img-responsive" />
+                        <p>
+                            Ut enim ad minima veniam, quis nostrum
+                            exercitationem ullam corporis suscipit laboriosam,
+                            nisi ut aliquid ex ea commodi consequatur? Quis autem
+                            vel eum iure reprehenderit qui in ea voluptate velit
+                            esse quam nihil molestiae consequatur, vel illum qui
+                            dolorem eum fugiat quo voluptas nulla pariatur.
+                            <i>
+                                " Quis autem vel eum iure reprehenderit qui in ea voluptate velit
+                                esse quam nihil molestiae consequatur.
+                            </i>
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <!-- //bootstrap-pop-up -->
+    <!-- flexSlider -->
+    <script defer src="~/js/jquery.flexslider.js"></script>
+    <script type="text/javascript">
+        $(window).load(function () {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                start: function (slider) {
+                    $('body').removeClass('loading');
+                }
+            });
+        });
+    </script>
+    <!-- //flexSlider -->
+    <!-- start-smoth-scrolling -->
+    <script type="text/javascript" src="~/js/move-top.js"></script>
+    <script type="text/javascript" src="~/js/easing.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+            });
+        });
+    </script>
+    <!-- start-smoth-scrolling -->
+    <script src="~/js/jarallax.js"></script>
+    <script src="~/js/SmoothScroll.min.js"></script>
+    <script type="text/javascript">
+        /* init Jarallax */
+        $('.jarallax').jarallax({
+            speed: 0.5,
+            imgWidth: 1366,
+            imgHeight: 768
+        })
+    </script>
+
+    <script src="~/js/bootstrap.js"></script>
+    <!-- //for bootstrap working -->
+    <!-- here stars scrolling icon -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*
+                var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+                };
+            */
+
+            $().UItoTop({ easingType: 'easeOutQuart' });
+
+        });
+    </script>
+    <!-- //here ends scrolling icon -->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+             $(".dropdown").hover(function () {
+            $(this).addClass("open")
+        }, function () {
+            $(this).removeClass("open")
+             })
+            
+            //jQuery
+            var UrlPath = $(location).attr('href').toLowerCase();
+            if (UrlPath.includes('about')) {
+                $("#About").addClass("menu__item--current")
+            } else if (UrlPath.includes('images')) {
+                $("#Images").addClass("menu__item--current")
+            } else if (UrlPath.includes('service')) {
+                $("#Services").addClass("menu__item--current")
+            } else if (UrlPath.includes('services')) {
+                $("#Services").addClass("menu__item--current")
+            } else if (UrlPath.includes('contactus')) {
+                $("#ContactUs").addClass("menu__item--current")
+            } else if (UrlPath.includes('follow')) {
+                $("#Follow").addClass("menu__item--current")
+            }else if (UrlPath.includes('branches')) {
+                $("#Branches").addClass("menu__item--current")
+            }else {
+                $("#Index").addClass("menu__item--current")
+            }
+
+        });
+
+       
+    </script>
+    <script>
+    function Subscribe() {
+        if ($("#subscribetxt").val().trim() != '' && $("#subscribetxt").val().includes("@@")) {
+            $.post("@Url.Action("Subscribe", "Home")", {
+
+                Email: $("#subscribetxt").val()
+
+            },
+                function (data) {
+                    $("#subscribe-grid").html("<h3>" + data + "</h3>")
+                    $("#error").html("")
+                })
+        } else {
+            $("#error").html("@Localizer["Please Enter You E-Mail"]")
+        }
+           };
+    </script>
+</body>
+</html>

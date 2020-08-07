@@ -1,0 +1,224 @@
+﻿@model Service
+@{
+    ViewData["Title"] = "Service";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    var currentCulture = ViewContext.HttpContext.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture;
+}
+@inject IViewLocalizer Localizer
+@inject ALBaraka.Repositories.UnitOfWork.IUnitOfWork unitofwork
+@inject IStaticDataValues staticData
+@section Banner{
+    <!-- banner1 -->
+    <div class="banner1 jarallax" style="background: url(/Uploads/StaticImages/@staticData.GetValue("Service_Banner",null)) no-repeat 0px -99px;">
+        <div class="container">
+        </div>
+    </div>
+
+    <div class="services-breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a><i>|</i></li>
+                @if (currentCulture.Name == "ar")
+                {
+                    <li>@Model.Name</li>
+                }
+                else
+                {
+                    <li>@Model.Name_EN</li>
+                }
+
+            </ul>
+        </div>
+    </div>
+    <!-- //banner1 -->
+
+}
+
+<!-- icons -->
+<div class="banner-bottom" id="about">
+    <div class="container">
+        <h2 class="w3_heade_tittle_agile">
+            @if (currentCulture.Name == "ar")
+            {
+                @Model.Name
+            }
+            else
+            {
+                @Model.Name_EN
+            }
+        </h2>
+        <p class="sub_t_agileits"></p>
+
+        <div class="single-grid">
+            <div class="col-md-8 w3ls-blog-left">
+                <div class="w3-blog-left-grid">
+                    <div class="w3ls-blog-leftr">
+                        <img src="~/Uploads/Services/@(Model.ID).jpg" alt=" " class="img-responsive" />
+                        <p>
+                            @if (currentCulture.Name == "ar")
+                            {
+                                @Model.Description
+                            }
+                            else
+                            {
+                                @Model.Description_EN
+                            }
+                        </p>
+                        <ul>
+                            <li class="read"><a href="tel:15043" class="btn btn-success">@Localizer["Hot Line"]</a></li>
+                        </ul>
+                        <ul>
+                            <li><a><i class="fa fa-comments-o" aria-hidden="true"></i>@Model.Comments.Count @Localizer["Comments"]</a></li>
+                        </ul>
+
+                    </div>
+                    <div class="clearfix"> </div>
+                    <div class="response" id="comments">
+                        <h4>@Localizer["Comments"]</h4>
+                        @foreach (var item in Model.Comments)
+                        {
+                            <div class="media response-info">
+                                <div class="media-left response-text-left">
+                                    <a href="#">
+                                        <img class="media-object" name="imgs" id="@item.Name" src="" alt="" />
+                                    </a>
+                                    <h5><a>@item.Name</a></h5>
+                                </div>
+                                <div class="media-body response-text-right">
+                                    <p>
+                                        @item.YourComment
+                                    </p>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+
+                        }
+                    </div>
+                    <div class="coment-form">
+                        <form onsubmit="return false;">
+                            <h4>@Localizer["Leave Your Comment"]</h4>
+                            <input type="text" id="Name" name="Name" placeholder="@Localizer["Name"] " required="">
+                            <input type="email" id="Email" name="Email" placeholder="@Localizer["Email"] " required>
+                            <input type="text" id="Phone" name="Phone" placeholder="@Localizer["Phone"]" required>
+                            <textarea id="YourComment" name="YourComment" placeholder="@Localizer["Your Comment"]" required></textarea>
+                            <input type="submit" onclick="Comment()" value="@Localizer["Submit Comment"]">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 w3-agile-blog-right">
+                <h3>@Localizer["Service Analyzes"]</h3>
+                <ul>
+                    @if (currentCulture.Name == "ar")
+                    {
+                        foreach (var item in Model.Service_Analyzes)
+                        {
+                            <li><a>@item.Name</a></li>
+                        }
+                    }
+                    else
+                    {
+                        foreach (var item in Model.Service_Analyzes)
+                        {
+                            <li><a>@item.Name_EN</a></li>
+                        }
+                    }
+
+                </ul>
+                <div class="agile-info-recent">
+                    <h3>@Localizer["Important Services"]</h3>
+                    <div class="w3ls-recent-grids">
+                        @if (currentCulture.Name == "ar")
+                        {
+                            foreach (var item in unitofwork.Services.AllData())
+                            {
+                                <div class="w3l-recent-grid">
+                                    <div class="wom">
+                                        <a asp-controller="Home" asp-action="Service" asp-route-ID="@item.ID"><img src="~/Uploads/Services/@(item.ID).jpg" alt=" " class="img-responsive" /></a>
+                                    </div>
+                                    <div class="wom-right">
+                                        <h4><a asp-controller="Home" asp-action="Service" asp-route-ID="@item.ID">@item.Name</a></h4>
+                                        <p>
+                                            @string.Join(' ', item.Description.Split(" ").Take(10).ToArray())
+                                        </p>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                </div>
+
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item in unitofwork.Services.AllData())
+                            {
+                                <div class="w3l-recent-grid">
+                                    <div class="wom">
+                                        <a asp-controller="Home" asp-action="Service" asp-route-ID="@item.ID"><img src="~/Uploads/Services/@(item.ID).jpg" alt=" " class="img-responsive" /></a>
+                                    </div>
+                                    <div class="wom-right">
+                                        <h4><a asp-controller="Home" asp-action="Service" asp-route-ID="@item.ID">@item.Name_EN</a></h4>
+                                        <p>
+                                            @string.Join(' ', item.Description_EN.Split(" ").Take(10).ToArray())
+                                        </p>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                </div>
+
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <!-- //single -->
+    </div>
+</div>
+<!-- icons -->
+<script>
+
+    var imgs = document.getElementsByName("imgs")
+    for (var img of imgs) {
+        img.setAttribute("src",generateAvatar(img.getAttribute("id")))
+    }
+
+        function Comment() {
+            $.post("@Url.Action("Comment", "Home")", {
+                Service_ID:@Model.ID ,
+                Email: $("#Email").val(),
+                Phone: $("#Phone").val(),
+                Name: $("#Name").val(),
+                YourComment: $("#YourComment").val(),
+
+            },
+                function (data) {
+                    $("#comments").append("<div class= 'media response-info'><div class='media-left response-text-left'><a href='#'><img class='media-object' name='imgs' id='" + data.name + "' src='' alt='' /></a><h5><a href='#'>" + data.name + "</a></h5></div><div class='media-body response-text-right'><p>" + data.yourComment + "</p></div><div class='clearfix'> </div></div>")
+                    imgs[imgs.length-1].setAttribute("src", generateAvatar(data.name))
+                })
+           };
+
+    function generateAvatar(name){
+  var initials = name.split(' ').map(function(str) { return str ? str[0].toUpperCase() : "";}).join('');
+  var canvas = document.createElement('canvas');
+  var radius = 30;
+  var margin = 5;
+  canvas.width = radius*2+margin*2;
+  canvas.height = radius*2+margin*2;
+
+  // Get the drawing context
+  var ctx = canvas.getContext('2d');
+  ctx.beginPath();
+  ctx.arc(radius+margin,radius+margin,radius, 0, 2 * Math.PI, false);
+  ctx.closePath();
+  ctx.fillStyle = 'grey';
+  ctx.fill();
+  ctx.fillStyle = "white";
+  ctx.font = "bold 30px Arial";
+  ctx.textAlign = 'center';
+  ctx.fillText(initials, radius+5,radius*4/3+margin);
+  return canvas.toDataURL();
+
+    }
+
+</script>
+

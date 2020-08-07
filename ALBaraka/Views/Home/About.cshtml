@@ -1,0 +1,252 @@
+﻿@model IEnumerable<Service>
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["About"];
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    var currentCulture = ViewContext.HttpContext.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture;
+}
+
+@inject IStaticDataValues staticData
+@section Banner{
+    <!-- banner1 -->
+    <div class="banner1 jarallax" style="background: url(/Uploads/StaticImages/@staticData.GetValue("About_Banner",null)) no-repeat 0px -99px;">
+        <div class="container">
+        </div>
+    </div>
+
+    <div class="services-breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a><i>|</i></li>
+                <li>@Localizer["About"]</li>
+            </ul>
+        </div>
+    </div>
+    <!-- //banner1 -->
+    <!-- //banner -->
+
+}
+
+
+<!-- about -->
+<div class="about" id="about">
+    <div class="container">
+        @*<h2 class="w3_heade_tittle_agile">@Localizer["Welcome to AlBaraka Labs"]</h2>
+            <p class="sub_t_agileits"></p>
+
+            <p class="ab">Lorem ipsum dolor sit amet, consectetur adipiscing elit.Sed blandit massa vel mauris sollicitudin dignissim.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at placerat ante. Praesent nulla nunc, pretium dapibus efficitur in, auctor eget elit. Lorem ipsum dolor sit amet</p>*@
+
+        <div class="about-w3lsrow">
+
+            <div class="col-md-6 w3about-img">
+                <img src="~/Uploads/StaticImages/@(staticData.GetValue("About_Image1",null))" alt=" " class="img-responsive">
+            </div>
+            <div class="col-md-6 col-sm-7 w3about-img">
+                <div class="w3about-text">
+                    <h5 class="w3l-subtitle">@staticData.GetValue("About_Head1", currentCulture.Name)</h5>
+                    <p>@staticData.GetValue("About_Description1", currentCulture.Name)</p>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <br />
+        <div class="about-w3lsrow">
+
+            <div class="col-md-6 w3about-img">
+                <img src="~/Uploads/StaticImages/@(staticData.GetValue("About_Image2",null))" alt=" " class="img-responsive">
+            </div>
+            <div class="col-md-6 col-sm-7 w3about-img">
+                <div class="w3about-text">
+                    <h5 class="w3l-subtitle">@staticData.GetValue("About_Head2", currentCulture.Name)</h5>
+                    <p>@staticData.GetValue("About_Description2", currentCulture.Name)</p>
+
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+<!-- /about-bottom -->
+
+<div class="agile_menu" id="menu">
+    <div class="container">
+        <h3 class="w3_heade_tittle_agile">@Localizer["Programs"]</h3>
+        <p class="sub_t_agileits"></p>
+        <div class="menu_w3ls_agile_top_section">
+            <div class="ziehharmonika">
+                @if (currentCulture.Name == "ar")
+                {
+                    foreach (var item in Model)
+                    {
+                        <h3>@item.Name</h3>
+                        <div>
+                            <div class="w3_agile_recipe-grid">
+
+
+                                <div class="col-md-6 col-sm-6 tab-info">
+                                    <h4>@item.Name</h4>
+                                    <p>@string.Join(' ', item.Description.Split(" ").Take(50).ToArray())</p>
+                                    <div class="read"><a asp-controller="Home" asp-action="Service" asp-route-ID="@item.ID" class="hvr-rectangle-in">@Localizer["Read More"]</a></div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 tab-image">
+                                    <img src="~/Uploads/Services/@(item.ID).jpg" alt="Medicinal">
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+                        </div>
+                    }
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <h3>@item.Name_EN</h3>
+                        <div>
+                            <div class="w3_agile_recipe-grid">
+
+                                <div class="col-md-6 col-sm-6 tab-image">
+                                    <img src="~/Uploads/Services/@(item.ID).jpg" alt="Medicinal">
+                                </div>
+                                <div class="col-md-6 col-sm-6 tab-info">
+                                    <h4>@item.Name_EN</h4>
+                                    <p>@string.Join(' ', item.Description_EN.Split(" ").Take(50).ToArray())</p>
+                                    <div class="read"><a asp-controller="Home" asp-action="Service" asp-route-ID="@item.ID" class="hvr-rectangle-in">@Localizer["Read More"]</a></div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- services section -->
+<div class="service-w3l jarallax" id="service">
+    <div class="container">
+        <h3 class="w3_heade_tittle_agile two">@Localizer["Why AlBaraka"]</h3>
+        <p class="sub_t_agileits"></p>
+        <div class="col-lg-4 col-md-4 col-sm-12 serv-agileinfo1">
+            <div class="col-lg-12 col-md-12 col-sm-6 serv-wthree1" data-aos="zoom-in">
+                <ul class="ch-grid">
+                    <li>
+                        <div class="ch-item">
+                            <div class="ch-info">
+                                <div class="ch-info-front ch-img-1"><i class="@staticData.GetValue("WhatWeDo_Icon1",null)" aria-hidden="true"></i></div>
+                                <div class="ch-info-back">
+                                    <h5>@staticData.GetValue("WhatWeDo_Name1", currentCulture.Name)</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <h4 class="text-center">@staticData.GetValue("WhatWeDo_Name1", currentCulture.Name)</h4>
+                <p class="text-center">@staticData.GetValue("WhatWeDo_Description1", currentCulture.Name)</p>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-6 serv-wthree2" data-aos="zoom-in">
+                <ul class="ch-grid">
+                    <li>
+                        <div class="ch-item">
+                            <div class="ch-info">
+                                <div class="ch-info-front ch-img-2"><i class="@staticData.GetValue("WhatWeDo_Icon2",null)" aria-hidden="true"></i></div>
+                                <div class="ch-info-back">
+                                    <h5>@staticData.GetValue("WhatWeDo_Name2", currentCulture.Name)</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <h4 class="text-center">@staticData.GetValue("WhatWeDo_Name2", currentCulture.Name)</h4>
+                <p class="text-center">@staticData.GetValue("WhatWeDo_Description2", currentCulture.Name)</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 serv-agileinfo2">
+            <div class="col-lg-12 col-md-12 col-sm-6 serv-wthree4" data-aos="zoom-in">
+                <ul class="ch-grid">
+                    <li>
+                        <div class="ch-item">
+                            <div class="ch-info">
+                                <div class="ch-info-front ch-img-3"><i class="@staticData.GetValue("WhatWeDo_Icon3",null)" aria-hidden="true"></i></div>
+                                <div class="ch-info-back">
+                                    <h5>@staticData.GetValue("WhatWeDo_Name3", currentCulture.Name)</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <h4 class="text-center">@staticData.GetValue("WhatWeDo_Name3", currentCulture.Name)</h4>
+                <p class="text-center">@staticData.GetValue("WhatWeDo_Description3", currentCulture.Name)</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 serv-agileinfo3">
+            <div class="col-lg-12 col-md-12 col-sm-6 serv-wthree6" data-aos="zoom-in">
+                <ul class="ch-grid">
+                    <li>
+                        <div class="ch-item">
+                            <div class="ch-info">
+                                <div class="ch-info-front ch-img-4"><i class="@staticData.GetValue("WhatWeDo_Icon4",null)" aria-hidden="true"></i></div>
+                                <div class="ch-info-back">
+                                    <h5>@staticData.GetValue("WhatWeDo_Name4", currentCulture.Name)</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <h4 class="text-center">@staticData.GetValue("WhatWeDo_Name4", currentCulture.Name)</h4>
+                <p class="text-center">@staticData.GetValue("WhatWeDo_Description4", currentCulture.Name)</p>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-6 serv-wthree5" data-aos="zoom-in">
+                <ul class="ch-grid">
+                    <li>
+                        <div class="ch-item">
+                            <div class="ch-info">
+                                <div class="ch-info-front ch-img-5"><i class="@staticData.GetValue("WhatWeDo_Icon5",null)" aria-hidden="true"></i></div>
+                                <div class="ch-info-back">
+                                    <h5>@staticData.GetValue("WhatWeDo_Name5", currentCulture.Name)</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <h4 class="text-center">@staticData.GetValue("WhatWeDo_Name5", currentCulture.Name)</h4>
+                <p class="text-center">@staticData.GetValue("WhatWeDo_Description5", currentCulture.Name)</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- /services section -->
+<!-- stats -->
+<div class="stats_inner jarallax" id="stats">
+    <div class="container">
+        <div class="inner_w3l_agile_grids">
+            <div class="col-md-3 w3layouts_stats_left w3_counter_grid">
+                <i class="@staticData.GetValue("Numbers_Icon1", null)" aria-hidden="true"></i>
+                <p class="counter"> @staticData.GetValue("Numbers_Number1", null)</p>
+                <h3> @staticData.GetValue("Numbers_Name1", currentCulture.Name)</h3>
+            </div>
+            <div class="col-md-3 w3layouts_stats_left w3_counter_grid1">
+                <i class=" @staticData.GetValue("Numbers_Icon2", null)" aria-hidden="true"></i>
+                <p class="counter"> @staticData.GetValue("Numbers_Number2", null)</p>
+                <h3> @staticData.GetValue("Numbers_Name2", currentCulture.Name)</h3>
+            </div>
+            <div class="col-md-3 w3layouts_stats_left w3_counter_grid2">
+                <i class=" @staticData.GetValue("Numbers_Icon3", null)" aria-hidden="true"></i>
+                <p class="counter"> @staticData.GetValue("Numbers_Number3", null)</p>
+                <h3> @staticData.GetValue("Numbers_Name3", currentCulture.Name)</h3>
+            </div>
+            <div class="col-md-3 w3layouts_stats_left w3_counter_grid3">
+                <i class=" @staticData.GetValue("Numbers_Icon4", null)" aria-hidden="true"></i>
+                <p class="counter"> @staticData.GetValue("Numbers_Number4", null)</p>
+                <h3> @staticData.GetValue("Numbers_Name4", currentCulture.Name)</h3>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+<!-- //stats -->

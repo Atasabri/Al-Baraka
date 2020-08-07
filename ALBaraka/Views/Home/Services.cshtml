@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Service>
+@{
+    ViewData["Title"] = "Services";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+        var currentCulture = ViewContext.HttpContext.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture;
+}
+@inject IViewLocalizer Localizer
+@inject IStaticDataValues staticData
+@section Banner{
+    <!-- banner1 -->
+    <div class="banner1 jarallax" style="background: url(/Uploads/StaticImages/@staticData.GetValue("About_Banner",null)) no-repeat 0px -99px;">
+        <div class="container">
+        </div>
+    </div>
+
+    <div class="services-breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a><i>|</i></li>
+                <li>@Localizer["Programs"]</li>
+            </ul>
+        </div>
+    </div>
+    <!-- //banner1 -->
+    <!-- //banner -->
+
+}
+
+<div class="agile_menu" id="menu">
+    <div class="container">
+        <h3 class="w3_heade_tittle_agile">@Localizer["Programs"]</h3>
+        <p class="sub_t_agileits"></p>
+        <div class="menu_w3ls_agile_top_section">
+            <div class="">
+                @if (currentCulture.Name == "ar")
+                {
+                    foreach (var item in Model)
+                    {
+                        <div style="display:block">
+                            <div class="w3_agile_recipe-grid">
+
+
+                                <div class="col-md-6 col-sm-6 tab-info">
+                                    <a asp-action="Service" asp-route-ID="@item.ID"> <h4>@item.Name</h4></a>
+                                    <p>@string.Join(' ', item.Description.Split(" ").Take(50).ToArray())</p>
+                                    <div class="read"><a asp-controller="Home" asp-action="Service" asp-route-ID="@item.ID" class="hvr-rectangle-in">@Localizer["Read More"]</a></div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 tab-image">
+                                    <a asp-action="Service" asp-route-ID="@item.ID"> <img src="~/Uploads/Services/@(item.ID).jpg" alt="Medicinal"></a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+                        </div>
+                        <br/>
+                    }
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <div style="display:block">
+                            <div class="w3_agile_recipe-grid">
+
+                                <div class="col-md-6 col-sm-6 tab-image">
+                                    <a asp-action="Service" asp-route-ID="@item.ID"> <img src="~/Uploads/Services/@(item.ID).jpg" alt="Medicinal"></a>
+                                </div>
+                                <div class="col-md-6 col-sm-6 tab-info">
+                                    <a asp-action="Service" asp-route-ID="@item.ID"> <h4>@item.Name_EN</h4></a>
+                                    <p>@string.Join(' ', item.Description_EN.Split(" ").Take(50).ToArray())</p>
+                                    <div class="read"><a asp-controller="Home" asp-action="Service" asp-route-ID="@item.ID" class="hvr-rectangle-in">@Localizer["Read More"]</a></div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+                        </div>
+                        <br/>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

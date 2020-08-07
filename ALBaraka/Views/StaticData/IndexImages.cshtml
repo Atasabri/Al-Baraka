@@ -1,0 +1,32 @@
+﻿@model List<StaticData>
+
+@{
+    ViewData["Title"] = "Static Images";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Edit Static Images</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditStaticImages" id="form" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+        <div class="form-group">
+            <label class="control-label" style="color:#0300bb">@Model[i].Key</label>
+            <label style="width:700px"> =>>> [ @Model[i].Description ] </label>
+            <div class="custom-file">
+                <input type="file" accept="Service/*" name="@Model[i].Key" class="form-control custom-file-input" />
+                <label class="custom-file-label">Choose Photo ...</label>
+                <span class="text-danger"></span>
+            </div>
+        </div>
+            }
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+    </div>
+</div>
+
